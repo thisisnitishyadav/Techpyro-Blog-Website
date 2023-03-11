@@ -1,0 +1,39 @@
+.slick-track{
+display: flex;
+width: 80%;
+height: 400px;
+padding-left: 20px;
+justify-content: center;
+}
+.slick-track.slick-slide.slick-active.slick-current{
+    width: 400px;
+}
+.slick-track.slick-slide.slick-active{
+    width: 400px;
+}
+.className{
+    display: block;
+}
+.css-11rx715{
+    position: relative !important;
+}
+.slick-prev{
+    position: absolute !important;
+    top: 50px !important;
+    left: 86%;
+    z-index: 100;
+    width: 20px;
+}
+.slick-next{
+    position: absolute !important;
+    top: 50px !important;
+   left: 89%;
+   z-index: 100;
+   width: 20px;
+}
+.css-10p4o09-MuiSvgIcon-root{
+    position: absolute !important;
+    top: 40% !important;
+    display: flex;
+    align-items: center;
+}
