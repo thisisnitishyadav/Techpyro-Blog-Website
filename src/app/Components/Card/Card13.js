@@ -38,7 +38,7 @@ const Card13 = () => {
 
   // const [click, setClick] = useState(0)
   const blogs = useSelector((state) => state.blog.blogs);
-  let [query,setQuery]=useState({"$and":[{"category":{"$regex":"app"}},{"sections.type":{"$regex":"shop"}}]});
+  let [query,setQuery]=useState({"$and":[{"category":{"$regex":"app","$options":"i"}},{"subCategory":{"$regex":"shop","$options":"i"}}]});
  const [limit, setLimit] = useState(9);
  const [page,setPage]= useState(1); 
  console.log(blogs)
@@ -90,7 +90,7 @@ const Card13 = () => {
       <CardMedia
         sx={{height:'100%'}}
           component="img"
-          image={item.sections[0].url[0]}
+          image={item&&item.sections.length!==0?item.sections[0].url.length!==0&&item.sections[0].url[0].path:"/images/blog8.webp"}
           alt="green iguana"
         />
        
@@ -99,7 +99,7 @@ const Card13 = () => {
      <Box sx={{display:'flex',flexDirection:{xs:'column',sm:'column',md:'column'}}}>
        <Box sx={{height:{xs:'100%',sm:'100%',md:'60%'},width:{xs:'100%',sm:'60%',md:'100%'},display:'flex',flexDirection:'column',padding:{xs:'10px 0px 0px 10px',sm:'0px',md:'10px'}}}>
          
-       <Typography sx={{color:'#FC27A4',marginTop:'10px'}}>{item.sections[0].type}</Typography>
+       <Typography sx={{color:'#FC27A4',marginTop:'10px'}}>{item&&item.sections.length!==0&&item.sections[0].type&&item.sections[0].type}</Typography>
         <Typography sx={{fontSize:{xs:'16px',sm:'20px',md:'20px'},fontWeight:'600',marginTop:{xs:'0px',sm:'0px',md:'10px'}}}>{item.title}</Typography>
        
        

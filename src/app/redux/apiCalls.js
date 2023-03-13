@@ -20,10 +20,10 @@ export const addblog = async(query={},limit=15, dispatch, page) =>{
       "leanWithId": true,
       "page": page,
       "limit":limit,
-      "pagination": true,
       "useEstimatedCount": false,
       "useCustomCountFn": false,
       "forceCountFn": false,
+      "pagination": true,
       "read": {},
       "options": {}
     },

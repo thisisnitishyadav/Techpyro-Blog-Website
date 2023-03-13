@@ -54,7 +54,7 @@ const Card1 = () => {
 
   const dispatch = useDispatch()
   useEffect(()=>{
-    setLimit(6)
+ 
     addblog(query,limit, dispatch)
     
            
@@ -79,7 +79,7 @@ const Card1 = () => {
       <CardMedia
         sx={{height:'100%'}}
           component="img"
-          image={item.sections[0].url[0]}
+          image={item&&item.sections.length!==0?item.sections[0].url.length!==0&&item.sections[0].url[0].path:"/images/blog9.jpg"}
           alt="green iguana"
         />
        
