@@ -5,14 +5,13 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 const Block2 = () => {
-  const blogs = useSelector((state) => state.blog.blogs);
-  const [limit,setLimit]=useState(1);
+ 
  
  
    
   return (
     <>
-     {blogs&&blogs.data&&blogs.data.data && blogs.data.data.map((item)=>(
+   
     <Box>
      
       <Box sx={{margin:{xs:'20px',sm:'30px',md:'100px 200px 0px 200px'}}}>
@@ -32,12 +31,11 @@ const Block2 = () => {
     
 
       <Box sx={{display:'flex',justifyContent:'center',margin:{xs:'20px',sm:'30px',md:'0px 200px'}}}>
-         <Typography>{item&&item.sections.length!==0&&item.sections[0].type&&item.sections[0].text}</Typography>
+         <Typography></Typography>
       </Box>
        
     </Box>
-     ))
-}
+ 
     </>
   )
 }
