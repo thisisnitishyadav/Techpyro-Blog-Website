@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import {Card, CardMedia, Typography, Box,useTheme,styled, Button} from '@mui/material';
 import { useRouter } from 'next/router';
-import axios from 'axios';
+// import axios from 'axios';
 import { KeyboardArrowRight } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { addblog } from '@/app/redux/apiCalls';
+import Skeleton from '@mui/material/Skeleton';
 
 
 
@@ -40,27 +41,33 @@ const CardBox = styled(Card)(({theme})=>({
 const Card4 = () => {
   // console.log(item)
     const theme = useTheme();
-   
+    
 
   const router = useRouter()
   
 
-  const handleClick = (e) => {
+  const handleClick = (e,id) => {
     e.preventDefault()
-    router.push(`/review`)
+    router.push(`/common/single/${id}`)
   }
-
-  let [query,setQuery]=useState();
  
+  const [skeltonStatus,setSkeltonStatus] = useState(true);
+  let arr = [1,2, 3,4,5,6,];
   const blogs = useSelector((state) => state.blog.blogs);
- const [limit, setLimit] = useState(6) 
+  const [query,setQuery]=useState();
+ const [limit, setLimit] = useState(6) ;
   
-  // setBlog(blogs)
-  const dispatch = useDispatch()
+
+ const fetchData =async () =>{
+  setSkeltonStatus(true);
+    let res = await addblog(query,limit, dispatch);
+    setSkeltonStatus(false);
+ }
+  const dispatch = useDispatch();
   useEffect(()=>{
-    setLimit(6)
-    addblog(query,limit, dispatch)
-       
+  
+    fetchData();
+      
         console.log(blogs);
        
     },[])
@@ -68,20 +75,63 @@ const Card4 = () => {
 
   return (
     <>
+
+
+
      <Box sx={{display:{xs:'flex',sm:'flex',md:'flex'},justifyContent:'space-between',alignItems:'center',margin:{xs:'50px 0px 20px 0px',sm:'50px 0px 20px 0px',md:'100px 200px 0px 200px'}}}>
-        <Typography sx={{color:'rgba(0,0,0,0.7)',fontSize:{xs:'25px',sm:'30px',md:'40px'},fontFamily:'fantasy'}}>DASHBOARDS</Typography>
-        <Typography sx={{display:'flex',alignItems:'center'}}>READ ALL DASHBOARDS<KeyboardArrowRight /></Typography>
+        <Typography sx={{color:'rgba(0,0,0,0.7)',fontSize:{xs:'25px',sm:'30px',md:'40px'},fontFamily:'fantasy'}}>WEBSITES</Typography>
+        <Typography sx={{display:'flex',alignItems:'center'}}>READ ALL WEBSITES<KeyboardArrowRight /></Typography>
     </Box>
     <Box sx={{height:'50px',borderTop:'0.5px solid black',borderBottom:'1px solid black',margin:'50px 200px',display:{xs:'none',sm:'none',md:'flex'},alignItems:'center',gap:'30px'}}>
-<Typography sx={{fontWeight:'400'}}>Dashboards Topics:</Typography>
-{/* <p>|</p> */}
+<Typography sx={{fontWeight:'400'}}>Websites Topics:</Typography>
 <Typography sx={{color:'#FC2779',fontSize:'14px',fontWeight:'600'}}>RESTAURENT</Typography>
 <Typography sx={{color:'#FC2779',fontSize:'14px',fontWeight:'600'}}>EDUCATION</Typography>
 <Typography sx={{color:'#FC2779',fontSize:'14px',fontWeight:'600'}}>SHOP</Typography>
 <Typography sx={{color:'#FC2779',fontSize:'14px',fontWeight:'600'}}>E-COMMERCE</Typography>
 <Typography sx={{color:'#FC2779',fontSize:'14px',fontWeight:'600'}}>OTHERS</Typography>
+
     </Box>
  
+    {skeltonStatus ?
+    <Box sx={{display:'flex',justifyContent:'center'}}>
+
+ 
+
+    <Box sx={{margin:{xs:'20px 0px',sm:'0px 0px',md:'0px 100px'},width:'auto',display:'flex',justifyContent:'center',flexDirection:{xs:'column',sm:'column',md:'row'},gap:'30px', flexWrap:"wrap"}}>
+    {arr.map((item)=>(
+    
+        
+    <CardBox  key={item.id} onClick={(e)=> handleClick(e,item.id)}>
+    <Box sx={{height:{xs:'100%',sm:'100%',md:'60%'},width:{xs:'70%',sm:'50%',md:'100%'},padding:{xs:'0px',sm:'0px',md:'0px'},display:'flex',justifyContent:'center',alignItems:'center',color:'black'}}>
+    <Skeleton variant="rectangular" sx={{height:'200px',width:'350px'}} />
+     
+     
+   </Box>
+   <Box sx={{display:'flex',flexDirection:{xs:'column',sm:'column',md:'column'}}}>
+     <Box sx={{height:{xs:'100%',sm:'100%',md:'60%'},width:{xs:'100%',sm:'60%',md:'100%'},display:'flex',flexDirection:'column',padding:{xs:'10px 0px 0px 10px',sm:'0px',md:'10px'}}}>
+       
+    
+     <Skeleton variant="text" sx={{ fontSize: '3rem' }} />
+     
+     
+     </Box>
+     <Box sx={{height:{xs:'30%',sm:'30%',md:'30%'},width:{xs:'10%',sm:'10%',md:'100%'},display:'flex',padding:{xs:'0px 10px 10px 10px',sm:'0px 10px',md:'10px 0 0 10px'},textAlign:'center'}}>
+     
+     <Skeleton variant="rectangular" sx={{height:'40px',width:'100px'}} />
+     </Box>
+     </Box>
+    
+    </CardBox>
+    
+    ))
+    }
+ 
+     </Box>
+     
+  
+     </Box>
+
+:
 
 <Box sx={{display:'flex',justifyContent:'center'}}>
 
@@ -91,7 +141,7 @@ const Card4 = () => {
         {blogs&&blogs.data&&blogs.data.data && blogs.data.data.map((item)=>(
       
           
-          <CardBox onClick={handleClick}>
+      <CardBox  key={item.id} onClick={(e)=> handleClick(e,item.id)}>
       <Box sx={{height:{xs:'100%',sm:'100%',md:'60%'},width:{xs:'70%',sm:'50%',md:'100%'},padding:{xs:'0px',sm:'0px',md:'0px'},display:'flex',justifyContent:'center',alignItems:'center',color:'black'}}>
       <CardMedia
         sx={{height:'100%'}}
@@ -120,26 +170,12 @@ const Card4 = () => {
       
       ))
       }
-      
    
-
-
-
-
-     
        </Box>
        
     
        </Box>
-       
-
-
-
-
-
-       
-    
-     
+}
        
        </>
        

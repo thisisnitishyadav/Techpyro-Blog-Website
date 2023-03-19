@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 // import Navbar from '@/app/Components/Navbar/Navbar'
 
-const index = () => {
+const Home = () => {
 
 
 const router=useRouter();
@@ -36,4 +36,4 @@ const router=useRouter();
   )
 }
 
-export default index
+export default Home

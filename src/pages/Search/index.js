@@ -3,7 +3,7 @@ import { TextField } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useState } from 'react'
 
-const index = () => {
+const Home = () => {
 
   // const [open, setOpen] = useState(true);
   
@@ -25,4 +25,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Home

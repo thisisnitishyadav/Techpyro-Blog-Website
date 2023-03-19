@@ -149,7 +149,7 @@ const Crousel1 = (props) => {
        <SliderInnerContainer>
     <Slider {...settings}>
      { props.sliderData.map ((item)=>(
-      <CrouselItem posterLinks={item} />
+      <CrouselItem  key={item.id} posterLinks={item} />
       ))}
     </Slider>
       </SliderInnerContainer>  

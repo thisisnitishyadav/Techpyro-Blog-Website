@@ -67,7 +67,7 @@ const StyleToolbar = styled(Toolbar)(({theme}) => ({
         display: 'flex',
        width:'100%',
        borderBottom:'3px solid rgba(0,0,0,0.2)',
-          justifyContent: 'center',
+          justifyContent: 'space-evenly',
        
         alignItems: 'center',
         [theme.breakpoints.down('md')]: {
@@ -242,8 +242,12 @@ const handleEduc = (e) => {
         <StyleToolbar>
         
         <NavLeft >
-          <TextField variant='outlined' label='Whar are you in the mood for?' sx={{"& fieldset":{borderRadius:'0px',height:'50px',width:'450px',background:'white'},width:'450px',height:'45px',display:{xs:'none',sm:'none',md:'block'}}}></TextField>
-          <Button variant='contained' sx={{height:'45px',borderRadius:'0px',background:'#3F414D',"&:hover":{background:'#3F414D'},display:{xs:'none',sm:'none',md:'block'}}}>Search</Button>
+        <img src='/images/logo (2).png'style={{height:'70px',width:'120px'}}/>
+        <Box sx={{display:'flex'}}>
+
+<TextField variant='outlined' label='Whar are you in the mood for?' sx={{"& fieldset":{borderRadius:'0px',height:'50px',width:'450px',background:'white'},width:'450px',height:'45px',display:{xs:'none',sm:'none',md:'block'}}}></TextField>
+<Button variant='contained' sx={{height:'45px',borderRadius:'0px',background:'#3F414D',"&:hover":{background:'#3F414D'},display:{xs:'none',sm:'none',md:'block'}}}>Search</Button>
+</Box>
 
     
          

@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import Card10 from '@/app/Components/Card/Card10'
 
-const index = () => {
+const Home = () => {
   const [query,setQuery]=useState();
   const [blog, setBlog] = useState(null)
   const blogs = useSelector((state) => state.blog?.blogs);
@@ -45,4 +45,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Home

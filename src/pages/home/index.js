@@ -9,7 +9,7 @@ import Card5 from '@/app/Components/Card/Card5';
 import Footer from '@/app/Components/Footer/Footer';
 // import {  useSelector } from 'react-redux';
 // import { addblog } from '@/app/redux/apiCalls';
-const index = () => {
+const Home = () => {
  
 
 
@@ -27,4 +27,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Home

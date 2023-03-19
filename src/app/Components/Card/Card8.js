@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 // import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { addblog } from '@/app/redux/apiCalls';
-
+import Skeleton from '@mui/material/Skeleton';
 
 
 
@@ -43,7 +43,9 @@ const Card8 = () => {
  const [limit, setLimit] = useState(9);
  const [page,setPage]= useState(1); 
 const [query,setQuery]=useState({"$and":[{"category":{"$regex":"website","$options":"i"}},{"subCategory":{"$regex":"Education","$options":"i"}}]});
-
+ 
+const [skeltonStatus,setSkeltonStatus] = useState(true);
+let arr = [1,2,3,4,5,6,7,8,9];
 
   // console.log(page)
 
@@ -51,9 +53,9 @@ const [query,setQuery]=useState({"$and":[{"category":{"$regex":"website","$optio
   const router = useRouter()
   
 
-  const handleClick = (e) => {
+  const handleClick = (e,id) => {
     e.preventDefault()
-    router.push(`/review`)
+    router.push(`/common/single/${id}`)
   }
   
   const handlePage=(e, value)=>{
@@ -62,11 +64,15 @@ const [query,setQuery]=useState({"$and":[{"category":{"$regex":"website","$optio
     setPage(value);
   }
 
-
-  // setBlog(blogs)
+const fetchData = async() => {
+  setSkeltonStatus(true);
+  let res = await  addblog(query,limit, dispatch,page);
+  setSkeltonStatus(false);
+}
+ 
   const dispatch = useDispatch()
   useEffect(()=>{
-    addblog(query,limit, dispatch,page)
+   fetchData();
     
   },[page])
  
@@ -76,7 +82,52 @@ const [query,setQuery]=useState({"$and":[{"category":{"$regex":"website","$optio
     <>
     
  
+{skeltonStatus?
 
+<Box sx={{display:'flex',justifyContent:'center'}}>
+
+ 
+
+<Box sx={{margin:{xs:'20px 0px',sm:'0px 0px',md:'0px 100px'},width:'auto',display:'flex',justifyContent:'center',flexDirection:{xs:'column',sm:'column',md:'row'},gap:'30px', flexWrap:"wrap"}}>
+  {arr.map((item)=>(
+
+    
+<CardBox  key={item.id} onClick={(e)=> handleClick(e,item.id)}>
+<Box sx={{height:{xs:'100%',sm:'100%',md:'60%'},width:{xs:'70%',sm:'50%',md:'100%'},padding:{xs:'0px',sm:'0px',md:'0px'},display:'flex',justifyContent:'center',alignItems:'center',color:'black'}}>
+<Skeleton variant="rectangular" sx={{height:'200px',width:'350px'}} />
+ 
+ 
+</Box>
+<Box sx={{display:'flex',flexDirection:{xs:'column',sm:'column',md:'column'}}}>
+ <Box sx={{height:{xs:'100%',sm:'100%',md:'60%'},width:{xs:'100%',sm:'60%',md:'100%'},display:'flex',flexDirection:'column',padding:{xs:'10px 0px 0px 10px',sm:'0px',md:'10px'}}}>
+   
+ <Skeleton variant="text" sx={{ fontSize: '3rem' }} />
+ 
+ 
+ </Box>
+ <Box sx={{height:{xs:'30%',sm:'30%',md:'30%'},width:{xs:'10%',sm:'10%',md:'100%'},display:'flex',padding:{xs:'0px 10px 10px 10px',sm:'0px 10px',md:'10px 0 0 10px'},textAlign:'center'}}>
+ 
+ <Skeleton variant="rectangular" sx={{height:'50px',width:'100px'}} />
+ </Box>
+ </Box>
+
+</CardBox>
+
+))
+}
+
+
+
+
+
+
+
+ </Box>
+ 
+
+ </Box>
+
+ :
 <Box sx={{display:'flex',justifyContent:'center'}}>
 
  
@@ -85,7 +136,7 @@ const [query,setQuery]=useState({"$and":[{"category":{"$regex":"website","$optio
         {blogs&&blogs.data&&blogs.data.data && blogs.data.data.map((item)=>(
       
           
-          <CardBox onClick={handleClick}>
+      <CardBox  key={item.id} onClick={(e)=> handleClick(e,item.id)}>
       <Box sx={{height:{xs:'100%',sm:'100%',md:'60%'},width:{xs:'70%',sm:'50%',md:'100%'},padding:{xs:'0px',sm:'0px',md:'0px'},display:'flex',justifyContent:'center',alignItems:'center',color:'black'}}>
       <CardMedia
         sx={{height:'100%'}}
@@ -125,6 +176,9 @@ const [query,setQuery]=useState({"$and":[{"category":{"$regex":"website","$optio
        
     
        </Box>
+}
+
+
 
        <Box sx={{width:'100%',display:'flex',justifyContent:'center',height:'100px',alignItems:'center'}}>
       <Pagination count={5}  color={'primary'} size={'large'} onChange={handlePage}/>
