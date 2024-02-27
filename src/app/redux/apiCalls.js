@@ -31,7 +31,7 @@ export const addblog = async(query={},limit=15, dispatch, page) =>{
   }
 
   
-  const res = await publicRequest.post("/userapp/blog/list", obj);
+  const res = await publicRequest.post("http://localhost:5001/userapp/blog/list", obj);
   console.log(obj);
        dispatch(addblogSuccess(res.data));
        return res;
